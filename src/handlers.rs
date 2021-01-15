@@ -129,15 +129,15 @@ pub async fn search_todos(
     }
 
     let search_query = search.query.unwrap();
-    let search_filter = search.filter.unwrap_or(String::from(""));
+    let search_filter = search.filter.unwrap_or(String::from("")).to_lowercase();
 
     let todos = store.todolist.read().clone();
 
     let results: Vec<Todo> = todos
         .into_iter()
         .filter(|t| {
-            (t.title.contains(&search_query) 
-            ||  t.description.contains(&search_query))
+            (t.title.to_lowercase().contains(&search_query) 
+            ||  t.description.to_lowercase().contains(&search_query))
             &&  match search_filter.as_str() {
                     "completed" => t.complete,
                     "incomplete" => !t.complete,
