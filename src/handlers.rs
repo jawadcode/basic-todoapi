@@ -1,6 +1,5 @@
 use crate::types::*;
 use warp::http;
-// use crate::types::*;
 
 pub async fn add_todo(todo: Todo, store: Store) -> Result<impl warp::Reply, warp::Rejection> {
     store.todolist.write().push(todo);
